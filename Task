@@ -1,0 +1,65 @@
+create database task;
+use task;
+CREATE TABLE Category(
+id_Category INT PRIMARY KEY,
+Category_Name VARCHAR(100) NOT NULL );
+
+--CREATE TABLE Category (
+--idCategory INT AUTO_INCREMENT PRIMARY KEY,
+--CategoryName VARCHAR(50) NOT NULL UNIQUE
+--);
+
+CREATE TABLE Product(
+idProduct INT PRIMARY KEY,
+Name VARCHAR(100)NOT NULL,
+idCategory INT NOT NULL,
+Price  DECIMAL(10, 2) NOT NULL CHECK (Price > 0));
+
+--CREATE TABLE Product (
+--idProduct INT AUTO_INCREMENT PRIMARY KEY,
+--Name VARCHAR(50) NOT NULL,
+--idCategory INT NOT NULL,
+--Price DECIMAL(10,2) NOT NULL CHECK (Price >= 0)
+--);
+
+CREATE TABLE Sale(
+idSale INT PRIMARY KEY,
+idProduct INT NOT NULL,
+idCustomer INT NOT NULL,
+Count_pr INT NOT NULL DEFAULT 1 CHECK (Count_pr > 0),
+Date_of_sale DATE NOT NULL DEFAULT GETDATE());
+
+--CREATE TABLE Sale (
+--idSale INT AUTO_INCREMENT PRIMARY KEY,
+--idProduct INT NOT NULL,
+--idCustomer INT NOT NULL,
+--Count_pr INT NOT NULL CHECK (Count_pr > 0),
+--Date_of_sale DATE NOT NULL
+--);
+
+CREATE TABLE Customer(
+idCustomer INT PRIMARY KEY,
+Name VARCHAR(100) NOT NULL,
+contact VARCHAR(200) NOT NULL UNIQUE);
+
+--CREATE TABLE Customer (
+--idCustomer INT AUTO_INCREMENT PRIMARY KEY,
+--Name VARCHAR(50) NOT NULL,
+--Contact VARCHAR(50)
+--);
+
+ALTER TABLE Sale
+ADD CONSTRAINT fk_sale_product
+FOREIGN KEY (idProduct)
+REFERENCES Product(idProduct);
+
+ALTER TABLE Sale
+ADD CONSTRAINT fk_sale_customer
+FOREIGN KEY (idCustomer)
+REFERENCES Customer(idCustomer);
+
+
+select * from Category;
+select * from Product;
+select * from Sale;
+select * from Customer;

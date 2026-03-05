@@ -1,0 +1,116 @@
+create database selectKlimuk;
+use selectKlimuk;
+
+--mockaroo.com - andmete genereerimiseks
+create table auto (
+    autoID INT PRIMARY KEY,
+    autoNumber CHAR(6) not null,
+    mark VARCHAR(50) not null,
+    model VARCHAR(50),
+    varv VARCHAR(50),
+    v_aasta int
+);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (1, 'AC2311', 'Austin', 'Mini', 'Purple', 1963);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (2, 'AA7995', 'Chevrolet', 'Cavalier', 'Purple', 2003);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (3, 'AM1046', 'Ford', 'F-Series Super Duty', 'Turquoise', 2012);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (4, 'BA3178', 'Honda', 'Civic', 'Khaki', 2001);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (5, 'DL7492', 'Mitsubishi', 'Tredia', 'Mauv', 1987);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (6, 'QF1234', 'Honda', 'Prelude', 'Green', 2001);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (7, 'NZ5033', 'Land Rover', 'Range Rover', 'Goldenrod', 2001);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (8, 'WN2544', 'Hyundai', 'Entourage', 'Crimson', 2009);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (9, 'AV6310', 'Oldsmobile', 'Ciera', 'Crimson', 1996);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (10, 'WN7250', 'Mercedes-Benz', 'SLS-Class', 'Violet', 2012);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (11, 'AA3272', 'Toyota', 'Tacoma', 'Aquamarine', 2007);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (12, 'AM5655', 'Volvo', 'C70', 'Purple', 2007);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (13, 'NZ1348', 'Ford', 'F-Series', 'Indigo', 1991);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (14, 'UA9423', 'Honda', 'Civic', 'Blue', 2002);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (15, 'AZ4787', 'Porsche', 'Cayenne', 'Crimson', 2008);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (16, 'KL5672', 'Mercury', 'Grand Marquis', 'Fuscia', 1984);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (17, 'CX1720', 'Chevrolet', 'Express', 'Red', 2012);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (18, 'IB3411', 'Subaru', 'XT', 'Crimson', 1990);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (19, 'KE1916', 'Jeep', 'Cherokee', 'Turquoise', 1994);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (20, 'AM6493', 'BMW', 'M3', 'Khaki', 2002);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (21, 'AF6385', 'Volkswagen', 'Scirocco', 'Red', 1986);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (22, 'KL7317', 'Nissan', 'Maxima', 'Blue', 2003);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (23, 'AV9889', 'BMW', 'X5', 'Yellow', 2013);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (24, 'NZ1707', 'Volvo', 'XC70', 'Puce', 2009);
+insert into auto (autoID, autoNumber, mark, model, varv, v_aasta) values (25, 'AV3448', 'Mercedes-Benz', 'CL-Class', 'Yellow', 2007);
+SELECT * FROM auto;
+
+--andmete sorteerimine
+--kasvavas järjekorras ASC
+SELECT * FROM auto
+ORDER BY v_aasta;
+
+--kahanevas järjekorras
+SELECT * FROM auto
+ORDER BY v_aasta DESC;
+
+--kuvab ainult kaks veergu
+SELECT mark, model FROM auto;
+
+--kordavate väärtuste välistamine DISTINCT
+SELECT DISTINCT mark FROM auto;
+
+--võrdlemine
+--1. suurem kui >, väiksem kui <, võrdub =
+--leia kõik autod, kus on v_aasta 2000 peale
+SELECT mark, model, v_aasta
+FROM auto
+WHERE v_aasta >= 2000;
+
+--leia kõik autod mis on v_aasta vahemikus 2000-2005
+SELECT mark, model, v_aasta
+FROM auto
+WHERE v_aasta BETWEEN 2000 AND 2005;
+
+SELECT mark, model, v_aasta
+FROM auto
+WHERE v_aasta >= 2000 AND v_aasta <= 2005;
+
+--2. võrdlemine tekst või sümbooliga
+--kuvab kõik ford'i autod
+SELECT mark, model, v_aasta
+FROM auto
+WHERE mark LIKE 'Ford';
+
+--IN lause kuvab vastavus loetelus -соответствие перечислению
+SELECT mark, model, v_aasta
+FROM auto
+WHERE mark IN ('Ford', 'Nissan', 'Jeep');
+
+--ilma IN
+SELECT mark, model, v_aasta
+FROM auto
+WHERE mark LIKE 'Ford' OR mark LIKE 'Nissan' OR mark LIKE 'Jeep';
+
+--vastavus mustrile - шаблон
+--algab F tähega
+SELECT mark, model, v_aasta
+FROM auto
+WHERE mark LIKE 'F%';
+--lõpeb p -tähega
+SELECT mark, model, v_aasta
+FROM auto
+WHERE mark LIKE '%p';
+
+--sisaldab a-täht
+SELECT mark, model, v_aasta
+FROM auto
+WHERE mark LIKE '%a%';
+
+--kuvada esimest 5 mudeli
+select * from auto;
+SELECT TOP 5 model, varv
+FROM auto
+WHERE varv like 'red'
+Order by varv;
+
+--agregaat funktsioonid: SUM, MIN, MAX, AVG, COUNT
+--SELECT COUNT(*) FROM auto;
+SELECT COUNT(*) AS autodeArv FROM auto;
+SELECT MAX(v_aasta) AS suuremAasta FROM auto;
+--keerulisem variant
+SELECT mark, AVG(v_aasta)
+FROM auto
+GROUP BY mark;

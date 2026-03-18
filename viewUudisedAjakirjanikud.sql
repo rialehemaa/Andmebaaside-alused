@@ -22,16 +22,15 @@ values ('Lev','5757755874'),('Anton','57357597')
 
 SELECT * FROM ajakirjanik;
 
-
 INSERT into uudised(uudisPealkiri,kuupaev,ajakirjanikID)
-values ('Homme on ises tˆˆ p‰ev','2025-03-12',1),
-('T‰na on andmebaaside tund','2025-03-12',1),
-('T‰na on vihane ilm','2025-03-12',2)
+values ('Homme on ises t√∂√∂ p√§ev','2025-03-18',1),
+('T√§na on andmebaaside tund','2025-03-18',1),
+('T√§na on vihane ilm','2025-03-18',2)
 
 Select * from uudised;
 SELECT * FROM ajakirjanik;
 
---select p‰ring 2 tabelite pıhjal
+--select p√§ring 2 tabelite p√µhjal
 SELECT * FROM uudised, ajakirjanik
 WHERE uudised.ajakirjanikID=ajakirjanik.ajakirjanikID;
 
@@ -57,7 +56,7 @@ SELECT * From loodudUudsed;
 SELECT * From loodudUudsed
 WHERE nimi Like 'Lev';
 
---INNER JOIN - sisemine ¸hendamine
+--INNER JOIN - sisemine √ºhendamine
 SELECT u.uudisPealkiri,a.nimi as autor, kuupaev
 FROM uudised as u INNER JOIN ajakirjanik as a
 ON u.ajakirjanikID=a.ajakirjanikID;
@@ -67,7 +66,7 @@ SELECT u.uudisPealkiri,a.nimi as autor, kuupaev
 FROM uudised as u INNER JOIN ajakirjanik as a
 ON u.ajakirjanikID=a.ajakirjanikID;
 
---kuvame salvestatud view p‰ring
+--kuvame salvestatud view p√§ring
 select * from kuupaevaUudised;
 
 select uudisPealkiri, YEAR(kuupaev) as aasta
@@ -89,7 +88,7 @@ UPDATE uudised SET ajalehtID=2;
 SELECT * FROM ajaleht;
 select * from uudised;
 
---select 3 tabelite pıhjal
+--select 3 tabelite p√µhjal
 SELECT u.uudisPealkiri,a.nimi as autor,aj.ajalehtNimetus
 FROM (uudised as u INNER JOIN ajakirjanik as a
 ON u.ajakirjanikID=a.ajakirjanikID)
@@ -111,4 +110,33 @@ SELECT * FROM AutoriUudisedAjalehes;
 Select * from uudised;
 
 UPDATE AutoriUudisedAjalehes SET kuupaev='2026-03-18';
---viewUudisedAjakirjanikud.sql lisa Moodleesse ja github'i
+--viewUudisedAjakirjanikud.sql lisame Moodleesse ja github'i
+
+--tee view, mis n√§itab uudised konkreetsel kuup√§eval
+CREATE VIEW Tanapaevdate AS
+SELECT * FROM uudised
+WHERE kuupaev = '2025-03-18';
+
+--oma1 ajakirjaniku view
+--N√§ita, mitu uudist iga ajakirjanik on kirjutanud
+CREATE VIEW AjakirjanikuStatistika AS
+SELECT a.nimi, COUNT(u.uudisID) as uudisteArv
+FROM ajakirjanik a
+LEFT JOIN uudised u ON a.ajakirjanikID = u.ajakirjanikID
+GROUP BY a.nimi;
+
+SELECT * FROM AjakirjanikuStatistika;
+
+--oma2 ajalehte view
+--N√§ita k√µik uudised koos ajalehega ja ainult need, mis on Delfi ajalehest
+CREATE VIEW DelfiUudised AS
+SELECT u.uudisPealkiri, aj.ajalehtNimetus, u.kuupaev
+FROM uudised u
+JOIN ajaleht aj ON u.ajalehtID = aj.ajalehtID
+WHERE aj.ajalehtNimetus = 'Delfi';
+
+SELECT * FROM DelfiUudised;
+
+
+SELECT nimi, uudisteArv FROM AjakirjanikuStatistika;
+SELECT uudisPealkiri, kuupaev FROM DelfiUudised;

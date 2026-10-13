@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="78a1156739cb41698a824e3f520ab061" Name="Diagram1" ZoomLevel="76" >
+        <EntityTypeShape EntityType="pitsarestoranModel.tootaja" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="pitsarestoranModel.amet" Width="1.5" PointX="4.875" PointY="0.5" />
+        <EntityTypeShape EntityType="pitsarestoranModel.ametimaaratus" Width="1.5" PointX="2.75" PointY="0.5" />
+        <AssociationConnector Association="pitsarestoranModel.tootajaametimaaratus" />
+        <AssociationConnector Association="pitsarestoranModel.ametametimaaratus" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Kategooria" Width="1.5" PointX="0.5" PointY="2.875" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Toode" Width="1.5" PointX="2.75" PointY="2.75" />
+        <EntityTypeShape EntityType="pitsarestoranModel.PitsaKoostisosa" Width="1.5" PointX="4.625" PointY="2.75" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Koostisosa" Width="1.5" PointX="6.75" PointY="2.375" />
+        <EntityTypeShape EntityType="pitsarestoranModel.KoostisosaTarnija" Width="1.5" PointX="6.75" PointY="4.375" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Tarnija" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Klient" Width="1.5" PointX="0.5" PointY="5" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Tellimus" Width="1.5" PointX="2.75" PointY="5.25" />
+        <EntityTypeShape EntityType="pitsarestoranModel.TellimuseToode" Width="1.5" PointX="4.75" PointY="5" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Laud" Width="1.5" PointX="0.75" PointY="7.375" />
+        <EntityTypeShape EntityType="pitsarestoranModel.Kohaletoimetamine" Width="1.5" PointX="4.75" PointY="7" />
+        <AssociationConnector Association="pitsarestoranModel.KategooriaToode" />
+        <AssociationConnector Association="pitsarestoranModel.ToodePitsaKoostisosa" />
+        <AssociationConnector Association="pitsarestoranModel.KoostisosaPitsaKoostisosa" />
+        <AssociationConnector Association="pitsarestoranModel.ToodeTellimuseToode" />
+        <AssociationConnector Association="pitsarestoranModel.KlientTellimus" />
+        <AssociationConnector Association="pitsarestoranModel.LaudTellimus" />
+        <AssociationConnector Association="pitsarestoranModel.TellimusTellimuseToode" />
+        <AssociationConnector Association="pitsarestoranModel.TellimusKohaletoimetamine" />
+        <AssociationConnector Association="pitsarestoranModel.KoostisosaKoostisosaTarnija" />
+        <AssociationConnector Association="pitsarestoranModel.TarnijaKoostisosaTarnija" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

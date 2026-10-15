@@ -13,5 +13,10 @@ namespace pitsarestoran
         {
 
         }
+
+        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -1,0 +1,157 @@
+CREATE TABLE õpilased (
+    õpilane_id INT PRIMARY KEY,
+    eesnimi VARCHAR(50),
+    perenimi VARCHAR(50),
+    vanus INT
+);
+
+INSERT INTO õpilased VALUES (1, 'Mari', 'Tamm', 20);
+INSERT INTO õpilased VALUES (2, 'Jaan', 'Kask', 22);
+INSERT INTO õpilased VALUES (3, 'Anna', 'Mets', 21);
+
+select * from õpilased;
+
+-- See rida annab vea, sest õpilane_id=1 on juba olemas:
+-- INSERT INTO õpilased VALUES (1, 'Peeter', 'Lepp', 23);
+
+CREATE TABLE kursused (
+    kursus_id INT PRIMARY KEY,
+    kursuse_nimi VARCHAR(100)
+);
+
+CREATE TABLE registreeringud (
+    registreering_id INT PRIMARY KEY,
+    õpilane_id INT,
+    kursus_id INT,
+    FOREIGN KEY (õpilane_id) REFERENCES õpilased(õpilane_id),
+    FOREIGN KEY (kursus_id) REFERENCES kursused(kursus_id)
+);
+
+INSERT INTO kursused VALUES (1, 'Andmebaasid');
+INSERT INTO kursused VALUES (2, 'Programmeerimine');
+INSERT INTO registreeringud VALUES (1, 1, 1);
+INSERT INTO registreeringud VALUES (2, 2, 2);
+INSERT INTO registreeringud VALUES (3, 1, 2);
+
+select * from kursused;
+select * from registreeringud;
+
+
+CREATE TABLE kasutajad (
+    kasutaja_id INT PRIMARY KEY,
+    kasutajanimi VARCHAR(50) UNIQUE,
+    email VARCHAR(100) UNIQUE,
+    eesnimi VARCHAR(50)
+);
+
+INSERT INTO kasutajad VALUES (1, 'mari123', 'mari@kool.ee', 'Mari');
+INSERT INTO kasutajad VALUES (2, 'jaan99', 'jaan@kool.ee', 'Jaan');
+
+-- See annab vea, sest 'mari123' on juba olemas:
+-- INSERT INTO kasutajad VALUES (3, 'mari123', 'anna@kool.ee', 'Anna');
+
+select * from kasutajad;
+
+
+CREATE TABLE tooted (
+    toode_id INT PRIMARY KEY,   -- See on Simple Key (üks veerg)
+    toote_nimi VARCHAR(100),
+    hind DECIMAL(10,2)
+);
+
+INSERT INTO tooted VALUES (1, 'Sülearvuti', 799.99);
+INSERT INTO tooted VALUES (2, 'Hiir', 25.50);
+INSERT INTO tooted VALUES (3, 'Klaviatuur', 45.00);
+
+-- toode_id on Simple Key - üks veerg identifitseerib rea
+
+select * from tooted ;
+
+CREATE TABLE tunniplaanid (
+    õpetaja_id INT,
+    aeg VARCHAR(20),
+    klassiruum VARCHAR(10),
+    aine VARCHAR(50),
+    PRIMARY KEY (õpetaja_id, aeg)   -- Composite Key: kaks veergu koos
+);
+
+-- Sama õpetaja ei saa olla kahes kohas samal ajal
+INSERT INTO tunniplaanid VALUES (1, 'Esmasp 08:00', 'A101', 'Matemaatika');
+INSERT INTO tunniplaanid VALUES (1, 'Esmasp 10:00', 'B203', 'Matemaatika');
+INSERT INTO tunniplaanid VALUES (2, 'Esmasp 08:00', 'C301', 'Inglise keel');
+
+-- See annab vea (sama õpetaja_id ja aeg):
+-- INSERT INTO tunniplaanid VALUES (1, 'Esmasp 08:00', 'D102', 'Füüsika');
+
+select * from tunniplaanid;
+
+CREATE TABLE õpilane_kursus (
+    õpilane_id INT,
+    kursus_id INT,
+    liitumise_kuupäev DATE,
+    PRIMARY KEY (õpilane_id, kursus_id),-- Compound Key
+    FOREIGN KEY (õpilane_id) REFERENCES õpilased(õpilane_id),
+    FOREIGN KEY (kursus_id) REFERENCES kursused(kursus_id)
+);
+
+INSERT INTO õpilane_kursus VALUES (1, 1, '2024-09-01');
+INSERT INTO õpilane_kursus VALUES (1, 2, '2024-09-01');
+INSERT INTO õpilane_kursus VALUES (2, 1, '2024-09-02');
+
+select * from õpilane_kursus;
+
+CREATE TABLE töötajad (
+    töötaja_id INT PRIMARY KEY,
+    isikukood CHAR(11) UNIQUE,
+    email VARCHAR(100) UNIQUE,
+    eesnimi VARCHAR(50),
+    perenimi VARCHAR(50)
+);
+
+INSERT INTO töötajad VALUES (1, '39001010123', 'kalle@firma.ee', 'Kalle', 'Sepp');
+INSERT INTO töötajad VALUES (2, '48505152345', 'tiiu@firma.ee', 'Tiiu', 'Org');
+
+-- Kõik järgnevad on Superkey-d (identifitseerivad rea unikaalselt):
+-- (töötaja_id)
+-- (isikukood)
+-- (email)
+-- (töötaja_id, isikukood)  <-- liigne, aga siiski Superkey
+-- (töötaja_id, email, eesnimi)  <-- liigne, aga siiski Superkey
+SELECT * FROM töötajad WHERE töötaja_id = 1;
+SELECT * FROM töötajad WHERE isikukood = '39001010123';
+SELECT * FROM töötajad WHERE töötaja_id = 1 AND email = 'kalle@firma.ee';
+select * from töötajad ;
+
+CREATE TABLE sõidukid (
+    sõiduk_id INT PRIMARY KEY,        -- valitud Candidate Key → Primary Key
+    registreerimisnumber CHAR(6) UNIQUE,  -- Candidate Key → saab Alternate Key-ks
+    vin_kood CHAR(17) UNIQUE,             -- Candidate Key → saab Alternate Key-ks
+    mark VARCHAR(50),
+    mudel VARCHAR(50)
+);
+
+INSERT INTO sõidukid VALUES (1, 'ABC123', '1HGBH41JXMN109186', 'Toyota', 'Corolla');
+INSERT INTO sõidukid VALUES (2, 'XYZ789', '2T1BURHE0JC043821', 'Honda', 'Civic');
+
+-- Kõik kolm on Candidate Key-d (igaüks identifitseerib rea unikaalselt):
+-- sõiduk_id, registreerimisnumber, vin_kood
+SELECT * FROM sõidukid WHERE registreerimisnumber = 'ABC123';
+SELECT * FROM sõidukid WHERE vin_kood = '1HGBH41JXMN109186';
+
+CREATE TABLE raamatud (
+    raamat_id INT PRIMARY KEY, -- Primary Key (valitud Candidate Key)
+    isbn CHAR(13) UNIQUE, -- Alternate Key (Candidate Key, mis ei valitud PK-ks)
+    pealkiri VARCHAR(200),
+    autor VARCHAR(100),
+    aasta INT
+);
+
+INSERT INTO raamatud VALUES (1, '9789985327548', 'Kevade', 'Oskar Luts', 1912);
+INSERT INTO raamatud VALUES (2, '9789985013567', 'Tõde ja õigus', 'Anton Hansen Tammsaare', 1926);
+INSERT INTO raamatud VALUES (3, '9789985052748', 'Rehepapp', 'Andrus Kivirähk', 2000);
+
+-- isbn on Alternate Key - saab kasutada unikaalse otsimiseks:
+SELECT * FROM raamatud WHERE isbn = '9789985327548';
+
+-- raamat_id on Primary Key:
+SELECT * FROM raamatud WHERE raamat_id = 2;

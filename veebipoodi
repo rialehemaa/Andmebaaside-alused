@@ -1,0 +1,139 @@
+CREATE DATABASE veebipoodKlimuk;
+USE veebipoodKlimuk;
+--table Categories
+CREATE TABLE categories(
+category_id int PRIMARY KEY IDENTITY(1,1),
+category_name varchar(30) unique);
+
+INSERT INTO categories(category_name)
+VALUES ('T-särk'),('pusa'),('pintsak'),('mantel'),('kleit');
+
+
+--table products
+CREATE TABLE products(
+product_id int PRIMARY KEY IDENTITY(1,1),
+product_name varchar(50) NOT NULL,
+brand_id int,
+category_id int,
+FOREIGN KEY(category_id) references categories(category_id),
+model_year int,
+list_price decimal(5,2));
+
+--tabel brands
+CREATE TABLE brands(
+brand_id int PRIMARY KEY IDENTITY(1,1),
+brand_name varchar(30) unique);
+
+INSERT INTO brands(brand_name)
+VALUES ('Nike'),('Adidas'),('Zara'),('H&M'),('Reserved');
+
+
+ALTER TABLE products ADD CONSTRAINT fk_brand
+FOREIGN KEY(brand_id) references brand(brand_id);
+
+--tabel stocks -- kaks primary key
+CREATE TABLE stocks(
+store_id int,
+product_id int,
+quantity int,
+PRIMARY KEY(store_id,product_id),
+foreign key (product_id) references products(product_id)
+);
+
+-- Table customers
+CREATE TABLE customers(
+customer_id int PRIMARY KEY IDENTITY(1,1),
+first_name varchar(30) NOT NULL,
+last_name varchar(30) NOT NULL,
+phone varchar(15),
+email varchar(50) unique,
+street varchar(50),
+city varchar(30),
+states varchar(30),
+zip_code varchar(5),
+);
+
+INSERT INTO customers(first_name, last_name, phone, email, street, city, states, zip_code)
+VALUES 
+    ('Anna', 'Kask', '+372 5111 1111', 'anna.kask@gmail.com', 'Pärnu mnt 5', 'Tallinn', 'Harjumaa', '10001'),
+    ('Peeter', 'Tamm', '+372 5222 2222', 'peeter.tamm@gmail.com', 'Vabaduse pst 10', 'Tartu', 'Tartumaa', '51003'),
+    ('Kati', 'Lepik', '+372 5333 3333', 'kati.lepik@gmail.com', 'Lai tänav 15', 'Pärnu', 'Pärnumaa', '80010'),
+    ('Mart', 'Saar', '+372 5444 4444', 'mart.saar@gmail.com', 'Rüütli 8', 'Tartu', 'Tartumaa', '51007'),
+    ('Liisa', 'Mets', '+372 5555 5555', 'liisa.mets@gmail.com', 'Pikk 22', 'Tallinn', 'Harjumaa', '10133');
+
+
+--table stores
+CREATE TABLE stores(
+store_id int PRIMARY KEY IDENTITY(1,1),
+store_name varchar(50) NOT NULL,
+phone varchar(20),
+email varchar(50),
+street varchar(50),
+city varchar(30),
+states varchar(30),
+zip_code varchar(10)
+);
+
+INSERT INTO stores(store_name, phone, email, street, city, states, zip_code)
+VALUES 
+    ('Põhikauplus', '+372 5937 1129', 'pohikauplus@veebipood.ee', 'Narva mnt 1', 'Tallinn', 'Harjumaa', '10001'),
+    ('Tartu kauplus', '+372 5605 2842', 'tartu@veebipood.ee', 'Riia 23', 'Tartu', 'Tartumaa', '51004');
+
+
+
+
+--table staffs
+CREATE TABLE staffs(
+staff_id int PRIMARY KEY IDENTITY(1,1),
+first_name varchar(30) NOT NULL,
+last_name varchar(30) NOT NULL,
+email varchar(50) unique,
+phone varchar(20),
+active bit DEFAULT 1,
+store_id int,
+manager_id int,
+foreign key (store_id) references stores(store_id),
+foreign key (manager_id) references staffs(staff_id)
+);
+
+INSERT INTO staffs(first_name, last_name, email, phone, active, store_id, manager_id)
+VALUES 
+    ('Mari', 'Maasikas', 'mari.maasikas@veebipood.ee', '+372 5531 3803', 1, 1, 1),
+    ('Jüri', 'Juurikas', 'juri.juurikas@veebipood.ee', '+372 5289 1204', 1, 1, 1),
+    ('Kadri', 'Kuusk', 'kadri.kuusk@veebipood.ee', '+372 5905 2386', 1, 2, 1);
+
+
+-- tabel orders
+CREATE TABLE orders(
+order_id int PRIMARY KEY IDENTITY(1,1),
+customer_id int,
+order_status tinyint NOT NULL,
+order_date date NOT NULL DEFAULT GETDATE(),
+required_date date NOT NULL,
+shipped_date date,
+store_id int,
+staff_id int,
+foreign key(customer_id) references customers(customer_id),
+foreign key(store_id) references stores(store_id),
+foreign key(staff_id) references staffs(staff_id)
+);
+
+-- Table order_items
+CREATE TABLE order_items(
+order_id int,
+item_id int,
+product_id int NOT NULL,
+quantity int NOT NULL,
+list_price decimal(5,2) NOT NULL,
+discount decimal(3,2) DEFAULT 0,
+primary key(order_id, item_id),
+foreign key(order_id) references orders(order_id),
+foreign key(product_id) references products(product_id)
+);
+SELECT * FROM categories;
+SELECT * FROM brands;
+SELECT * FROM stores;
+SELECT * FROM staffs;
+SELECT * FROM customers;
+SELECT * FROM order_items;
+

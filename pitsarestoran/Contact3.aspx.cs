@@ -11,7 +11,11 @@ namespace pitsarestoran
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void DetailsView1_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
+        {
+            Response.Redirect("~/Contact2#logi");
         }
     }
 }

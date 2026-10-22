@@ -51,6 +51,8 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Klient</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact2">AmetiMaaratus</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact3">AmetiMaaratus veebivorm</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact4">Tooted</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact5">Tellimused</a></li>
                     </ul>
                 </div>
             </div>

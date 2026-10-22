@@ -38,7 +38,7 @@
                 <asp:BoundField DataField="eesnimi" HeaderText="eesnimi" SortExpression="eesnimi" />
                 <asp:BoundField DataField="perekonnanimi" HeaderText="perekonnanimi" SortExpression="perekonnanimi" />
                 <asp:BoundField DataField="telefon" HeaderText="telefon" SortExpression="telefon" />
-                <asp:CommandField ShowInsertButton="True" />
+                <asp:CommandField ShowInsertButton="True" NewText="Uus" CancelText="Loobu" />
             </Fields>
         </asp:DetailsView>
 </p>

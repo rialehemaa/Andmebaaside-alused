@@ -30,13 +30,13 @@
 </p>
 <h2>
     Lisa Klient</h2>
-<asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" DataKeyNames="klientID" DataSourceID="SqlDataSource1" Height="50px" Width="125px">
+<asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" DataKeyNames="klientID" DataSourceID="SqlDataSource1" DefaultMode="Insert" Height="50px" Width="125px">
     <Fields>
         <asp:BoundField DataField="klientID" HeaderText="klientID" InsertVisible="False" ReadOnly="True" SortExpression="klientID" />
         <asp:BoundField DataField="eesnimi" HeaderText="eesnimi" SortExpression="eesnimi" />
         <asp:BoundField DataField="perekonnanimi" HeaderText="perekonnanimi" SortExpression="perekonnanimi" />
         <asp:BoundField DataField="telefon" HeaderText="telefon" SortExpression="telefon" />
-        <asp:CommandField ShowInsertButton="True" />
+        <asp:CommandField ShowInsertButton="True" InsertText="Lisa" ShowCancelButton="True" CancelText="Loobu" NewText="Uus" />
     </Fields>
 </asp:DetailsView>
 <p>

@@ -109,6 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Contact5.aspx" />
+    <Content Include="Contact4.aspx" />
     <Content Include="Contact3.aspx" />
     <Content Include="Contact2.aspx" />
     <Content Include="Contact.aspx" />
@@ -227,6 +229,20 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Contact5.aspx.cs">
+      <DependentUpon>Contact5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact5.aspx.designer.cs">
+      <DependentUpon>Contact5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contact4.aspx.cs">
+      <DependentUpon>Contact4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact4.aspx.designer.cs">
+      <DependentUpon>Contact4.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact3.aspx.cs">
       <DependentUpon>Contact3.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
